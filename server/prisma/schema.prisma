@@ -1,0 +1,50 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Load {
+  id        Int      @id @default(autoincrement())
+  serial    Int
+  timestamp DateTime @default(now())
+  status    String   @default("CONFIRMED")
+
+  vehicleNumber       String
+  driverName          String?
+  brokerDetails       String
+  loadingDate         String
+  loadingLocation     String
+  unloadingDate       String
+  unloadingLocation   String
+  sku                 String
+  tonnage             Float
+  perTonPrice         Float
+  km                  Float
+  externalPointMillKm Float
+  brokerCommission    Float    @default(0)
+  loadingCost         Float    @default(0)
+  unloadingCost       Float    @default(0)
+  rto                 Float    @default(0)
+  fastagCost          Float    @default(0)
+
+  totalKm           Float
+  litres            Float
+  fuelCost          Float
+  driver            Float
+  projectedExpenses Float
+  perKmCost         Float
+  marginPerTrip     Float
+  finalAmount       Float
+  brokerTripCost    Float
+  tripAmount        Float    @default(0)
+  netMargin         Float
+  baseClosingRate   Float
+  totalQuotation    Float
+  quotationPerTon   Float
+
+  @@map("loads")
+}

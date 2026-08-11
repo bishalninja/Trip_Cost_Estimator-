@@ -1,11 +1,7 @@
-@import "tailwindcss";
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  background: #f4f6f9;
-  font-family: Inter, Arial, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
 }
