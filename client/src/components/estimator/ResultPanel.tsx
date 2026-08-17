@@ -39,8 +39,12 @@ export default function ResultPanel({ result, canSave, saving, saved, onReset }:
 
         <Row label="Total KM" value={formatINR(result.totalKm)} />
         <Row label="Litres (÷3)" value={formatINR(result.litres)} />
-        <Row label="Fuel cost" value={"₹" + formatINR(result.fuelCost)} />
+        <Row label="Fuel cost (3km/L)" value={"₹" + formatINR(result.fuelCost)} />
         <Row label="Broker commission" value={"₹" + formatINR(result.brokerCommissionAmount)} />
+        <Row label="Loading cost" value={"₹" + formatINR(result.loadingCostAmount)} />
+        <Row label="Unloading cost" value={"₹" + formatINR(result.unloadingCostAmount)} />
+        <Row label="RTO" value={"₹" + formatINR(result.rtoAmount)} />
+        <Row label="Fastag cost" value={"₹" + formatINR(result.fastagCostAmount)} />
         <Row label="Driver" value={"₹" + formatINR(result.driver)} />
         <Row label="Projected expenses" value={"₹" + formatINR(result.projectedExpenses)} strong />
         <Row label="Per KM cost" value={"₹" + formatINR(result.perKmCost)} />

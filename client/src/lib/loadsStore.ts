@@ -10,10 +10,20 @@ export async function saveLoad(
   form: TripFormData,
   result: CalculationResult
 ): Promise<ConfirmedLoad> {
-  // brokerCommissionAmount is the parsed numeric version of form.brokerCommission,
-  // computed for display only — the server's `brokerCommission` column already
-  // stores the coerced number, so drop the duplicate key before sending.
-  const { brokerCommissionAmount: _brokerCommissionAmount, ...resultToSend } = result;
+  // These four "...Amount" fields are just parsed numeric versions of the
+  // matching TripFormData string fields (brokerCommission, loadingCost,
+  // unloadingCost, rto, fastagCost) — computed for display only. The
+  // server's DB columns already store the coerced numbers under the
+  // original field names, so drop the duplicate keys before sending or
+  // Prisma rejects them as unrecognized fields.
+  const {
+    brokerCommissionAmount: _brokerCommissionAmount,
+    loadingCostAmount: _loadingCostAmount,
+    unloadingCostAmount: _unloadingCostAmount,
+    rtoAmount: _rtoAmount,
+    fastagCostAmount: _fastagCostAmount,
+    ...resultToSend
+  } = result;
   const { data } = await api.post<ConfirmedLoad>("/loads", { ...form, ...resultToSend });
   return data;
 }

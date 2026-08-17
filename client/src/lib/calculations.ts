@@ -40,6 +40,10 @@ export function calculateTripCost(form: TripFormData): CalculationResult {
   const km = num(form.km);
   const extKm = num(form.externalPointMillKm);
   const brokerCommissionAmount = num(form.brokerCommission);
+  const loadingCostAmount = num(form.loadingCost);
+  const unloadingCostAmount = num(form.unloadingCost);
+  const rtoAmount = num(form.rto);
+  const fastagCostAmount = num(form.fastagCost);
 
   const totalKm = km + extKm;
   const litres = totalKm / FIXED_RATES.kmPerLitre;
@@ -50,10 +54,10 @@ export function calculateTripCost(form: TripFormData): CalculationResult {
   const projectedExpenses =
     fuelCost +
     brokerCommissionAmount +
-    num(form.loadingCost) +
-    num(form.unloadingCost) +
-    num(form.rto) +
-    num(form.fastagCost) +
+    loadingCostAmount +
+    unloadingCostAmount +
+    rtoAmount +
+    fastagCostAmount +
     driver;
 
   const marginPerTrip = form.brokerDetails ? FIXED_RATES.marginPerTrip : 0;
@@ -73,6 +77,10 @@ export function calculateTripCost(form: TripFormData): CalculationResult {
     litres,
     fuelCost,
     brokerCommissionAmount,
+    loadingCostAmount,
+    unloadingCostAmount,
+    rtoAmount,
+    fastagCostAmount,
     driver,
     projectedExpenses,
     perKmCost,

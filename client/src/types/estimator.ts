@@ -23,6 +23,10 @@ export interface CalculationResult {
   litres: number;
   fuelCost: number;
   brokerCommissionAmount: number;
+  loadingCostAmount: number;
+  unloadingCostAmount: number;
+  rtoAmount: number;
+  fastagCostAmount: number;
   driver: number;
   projectedExpenses: number;
   perKmCost: number;
