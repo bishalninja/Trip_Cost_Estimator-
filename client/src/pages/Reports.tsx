@@ -22,7 +22,7 @@ export default function Reports() {
 
   const totals = useMemo(
     () => ({
-      revenue: filtered.reduce((s, l) => s + (l.totalQuotation || 0), 0),
+      revenue: filtered.reduce((s, l) => s + (l.tripAmount || 0), 0),
       netMargin: filtered.reduce((s, l) => s + (l.netMargin || 0), 0),
     }),
     [filtered]
@@ -130,7 +130,7 @@ export default function Reports() {
                         {l.loadingLocation} → {l.unloadingLocation}
                       </td>
                       <td className="border-b border-gray-100 px-2.5 py-2">{l.sku}</td>
-                      <td className="border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.totalQuotation)}</td>
+                      <td className="border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.tripAmount)}</td>
                       <td
                         className={`border-b border-gray-100 px-2.5 py-2 ${
                           l.netMargin < 0 ? "text-red-600" : "text-green-600"

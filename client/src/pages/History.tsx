@@ -5,7 +5,19 @@ import { formatINR } from "../lib/calculations";
 import LoadDetailRow from "../components/history/LoadDetailRow";
 import LoadCard from "../components/history/LoadCard";
 
-const COLUMNS = ["#", "Vehicle", "Route", "SKU", "Tonnage", "Total KM", "Final amount", "Net margin", "Quotation"];
+const COLUMNS = [
+  "Date",
+  "Vehicle",
+  "Driver",
+  "Route",
+  "SKU",
+  "Tonnage",
+  "Total KM",
+  "Trip Amount",
+  "Margin per trip",
+  "Final amount",
+  "Net margin",
+];
 
 export default function History() {
   const [loads, setLoads] = useState<ConfirmedLoad[]>([]);
@@ -25,7 +37,7 @@ export default function History() {
   };
 
   return (
-    <div className="mx-auto max-w-5xl p-4 sm:p-5">
+    <div className="mx-auto max-w-[1400px] p-4 sm:p-5">
       <h1 className="mb-4 text-lg font-semibold sm:text-xl">Confirmed loads ({loads.length})</h1>
 
       {loading && <p className="text-sm text-gray-400">Loading...</p>}
@@ -54,7 +66,7 @@ export default function History() {
                 <tr className="bg-gray-100 text-left">
                   <th className="w-6 border-b border-gray-200 px-2.5 py-2" />
                   {COLUMNS.map((h) => (
-                    <th key={h} className="border-b border-gray-200 px-2.5 py-2">
+                    <th key={h} className="whitespace-nowrap border-b border-gray-200 px-2.5 py-2">
                       {h}
                     </th>
                   ))}
@@ -74,23 +86,27 @@ export default function History() {
                             ▶
                           </span>
                         </td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">{l.serial}</td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">{l.vehicleNumber}</td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">
+                          {l.loadingDate?.split("T")[0]}
+                        </td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.vehicleNumber}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.driverName || "—"}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">
                           {l.loadingLocation} → {l.unloadingLocation}
                         </td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">{l.sku}</td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">{l.tonnage}</td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">{formatINR(l.totalKm)}</td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.finalAmount)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.sku}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.tonnage}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{formatINR(l.totalKm)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.tripAmount)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.marginPerTrip)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.finalAmount)}</td>
                         <td
-                          className={`border-b border-gray-100 px-2.5 py-2 ${
+                          className={`whitespace-nowrap border-b border-gray-100 px-2.5 py-2 ${
                             l.netMargin < 0 ? "text-red-600" : "text-green-600"
                           }`}
                         >
                           ₹{formatINR(l.netMargin)}
                         </td>
-                        <td className="border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.totalQuotation)}</td>
                       </tr>
                       {isOpen && <LoadDetailRow load={l} colSpan={COLUMNS.length + 1} />}
                     </Fragment>
