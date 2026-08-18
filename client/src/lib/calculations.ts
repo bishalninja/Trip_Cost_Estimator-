@@ -1,4 +1,5 @@
 import type { CalculationResult, TripFormData } from "../types/estimator";
+import { CURRENT_RATE_VERSION, getRateVersion, type RateVersion } from "./rateVersions";
 
 export const FIXED_RATES = {
   driverCost: 7000,
@@ -13,7 +14,10 @@ const num = (v: string): number => {
   return isNaN(n) ? 0 : n;
 };
 
-export function calculateTripCost(form: TripFormData): CalculationResult {
+export function calculateTripCost(form: TripFormData, rateVersion: RateVersion = CURRENT_RATE_VERSION
+): CalculationResult {
+
+  const rates = rateVersion.rates;
   const tonnage = num(form.tonnage);
   const perTonPrice = num(form.perTonPrice);
   const km = num(form.km);
@@ -52,6 +56,7 @@ export function calculateTripCost(form: TripFormData): CalculationResult {
   const quotationPerTon = tonnage ? totalQuotation / tonnage : 0;
 
   return {
+    rateVersion: rateVersion.id,
     totalKm,
     litres,
     fuelCost,
@@ -73,6 +78,7 @@ export function calculateTripCost(form: TripFormData): CalculationResult {
     quotationPerTon,
   };
 }
+export { getRateVersion, CURRENT_RATE_VERSION } from "./rateVersions";
 
 export const formatINR = (n: number): string =>
   isFinite(n) ? n.toLocaleString("en-IN", { maximumFractionDigits: 2 }) : "0";

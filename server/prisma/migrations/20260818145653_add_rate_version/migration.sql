@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `loads` ADD COLUMN `rateVersion` VARCHAR(191) NOT NULL DEFAULT 'v1',
+    ADD COLUMN `tripMargin` DOUBLE NOT NULL DEFAULT 0;

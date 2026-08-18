@@ -60,8 +60,8 @@ export default function LoadDetailCard({ load }: LoadDetailCardProps) {
         <Field label="Projected expenses" value={"₹" + formatINR(load.projectedExpenses)} />
         <Field label="Per KM cost" value={"₹" + formatINR(load.perKmCost)} />
         <Field label="Trip amount (Receivable)" value={"₹" + formatINR(load.tripAmount)} />
-        <Field label="Trip Margin" value={"₹" + formatINR(load.tripMargin)} />
-        <Field label="Fixed Margin / trip" value={"₹" + formatINR(load.marginPerTrip)} />
+        <Field label="Margin per trip" value={"₹" + formatINR(load.marginPerTrip)} />
+        <Field label="Final amount" value={"₹" + formatINR(load.finalAmount)} />
         <Field label="Net margin" value={"₹" + formatINR(load.netMargin)} />
         <Field label="Base closing rate/km" value={"₹" + formatINR(load.baseClosingRate)} />
         <Field label="Total quotation" value={"₹" + formatINR(load.totalQuotation)} />
@@ -69,6 +69,7 @@ export default function LoadDetailCard({ load }: LoadDetailCardProps) {
       </Section>
 
       <Field label="Saved on" value={new Date(load.timestamp).toLocaleString()} />
+      <Field label="Rate version" value={load.rateVersion} />
     </div>
   );
 }

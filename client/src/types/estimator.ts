@@ -19,6 +19,7 @@ export interface TripFormData {
 }
 
 export interface CalculationResult {
+  rateVersion: string;
   totalKm: number;
   litres: number;
   fuelCost: number;

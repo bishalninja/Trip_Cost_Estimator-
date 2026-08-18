@@ -12,6 +12,7 @@ model Load {
   serial    Int
   timestamp DateTime @default(now())
   status    String   @default("CONFIRMED")
+  rateVersion String @default("v1")
 
   vehicleNumber       String
   driverName          String?
@@ -41,6 +42,7 @@ model Load {
   finalAmount       Float
   brokerTripCost    Float
   tripAmount        Float    @default(0)
+  tripMargin        Float    @default(0)
   netMargin         Float
   baseClosingRate   Float
   totalQuotation    Float

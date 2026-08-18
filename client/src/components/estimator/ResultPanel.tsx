@@ -95,6 +95,7 @@ export default function ResultPanel({ result, canSave, saving, saved, onReset }:
         {!canSave && (
           <p className="mt-2 text-xs text-gray-400">Fill all required (*) fields to enable save.</p>
         )}
+        <p className="mt-2 text-[11px] text-gray-400">Rates: {result.rateVersion}</p>
       </Card>
     </div>
   );
