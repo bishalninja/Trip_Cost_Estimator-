@@ -1,23 +1,17 @@
 import type { CalculationResult, TripFormData } from "../types/estimator";
-import { CURRENT_RATE_VERSION, getRateVersion, type RateVersion } from "./rateVersions";
-
-export const FIXED_RATES = {
-  driverCost: 7000,
-  marginPerTrip: 5000,
-  baseClosingRate: 75,
-  kmPerLitre: 3,
-  fuelRatePerLitre: 100,
-} as const;
+import { CURRENT_RATE_VERSION, type RateVersion } from "./rateVersions";
 
 const num = (v: string): number => {
   const n = parseFloat(v);
   return isNaN(n) ? 0 : n;
 };
 
-export function calculateTripCost(form: TripFormData, rateVersion: RateVersion = CURRENT_RATE_VERSION
+export function calculateTripCost(
+  form: TripFormData,
+  rateVersion: RateVersion = CURRENT_RATE_VERSION
 ): CalculationResult {
-
   const rates = rateVersion.rates;
+
   const tonnage = num(form.tonnage);
   const perTonPrice = num(form.perTonPrice);
   const km = num(form.km);
@@ -33,9 +27,9 @@ export function calculateTripCost(form: TripFormData, rateVersion: RateVersion =
   const tripAmount = brokerTripCost - brokerCommissionAmount;
 
   const totalKm = km + extKm;
-  const litres = totalKm / FIXED_RATES.kmPerLitre;
-  const fuelCost = litres * FIXED_RATES.fuelRatePerLitre;
-  const driver = form.vehicleNumber ? FIXED_RATES.driverCost : 0;
+  const litres = totalKm / rates.kmPerLitre;
+  const fuelCost = litres * rates.fuelRatePerLitre;
+  const driver = form.vehicleNumber ? rates.driverCost : 0;
 
   const projectedExpenses =
     fuelCost +
@@ -46,12 +40,12 @@ export function calculateTripCost(form: TripFormData, rateVersion: RateVersion =
     fastagCostAmount +
     driver;
 
-  const marginPerTrip = form.brokerDetails ? FIXED_RATES.marginPerTrip : 0;
+  const marginPerTrip = form.brokerDetails ? rates.marginPerTrip : 0;
   const finalAmount = projectedExpenses + marginPerTrip;
   const perKmCost = totalKm ? projectedExpenses / totalKm : 0;
   const netMargin = tripAmount - finalAmount;
 
-  const baseClosingRate = form.unloadingDate ? FIXED_RATES.baseClosingRate : 0;
+  const baseClosingRate = form.unloadingDate ? rates.baseClosingRate : 0;
   const totalQuotation = totalKm * baseClosingRate;
   const quotationPerTon = tonnage ? totalQuotation / tonnage : 0;
 
@@ -78,6 +72,7 @@ export function calculateTripCost(form: TripFormData, rateVersion: RateVersion =
     quotationPerTon,
   };
 }
+
 export { getRateVersion, CURRENT_RATE_VERSION } from "./rateVersions";
 
 export const formatINR = (n: number): string =>
