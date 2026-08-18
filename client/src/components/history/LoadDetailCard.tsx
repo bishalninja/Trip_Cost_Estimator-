@@ -56,12 +56,12 @@ export default function LoadDetailCard({ load }: LoadDetailCardProps) {
       </Section>
 
       <Section title="Calculated result">
+        <Field label="Broker trip cost" value={"₹" + formatINR(load.brokerTripCost)} />
         <Field label="Projected expenses" value={"₹" + formatINR(load.projectedExpenses)} />
         <Field label="Per KM cost" value={"₹" + formatINR(load.perKmCost)} />
-        <Field label="Margin / trip" value={"₹" + formatINR(load.marginPerTrip)} />
-        <Field label="Final amount" value={"₹" + formatINR(load.finalAmount)} />
-        <Field label="Broker trip cost" value={"₹" + formatINR(load.brokerTripCost)} />
-        <Field label="Trip amount" value={"₹" + formatINR(load.tripAmount)} />
+        <Field label="Trip amount (Receivable)" value={"₹" + formatINR(load.tripAmount)} />
+        <Field label="Trip Margin" value={"₹" + formatINR(load.tripMargin)} />
+        <Field label="Fixed Margin / trip" value={"₹" + formatINR(load.marginPerTrip)} />
         <Field label="Net margin" value={"₹" + formatINR(load.netMargin)} />
         <Field label="Base closing rate/km" value={"₹" + formatINR(load.baseClosingRate)} />
         <Field label="Total quotation" value={"₹" + formatINR(load.totalQuotation)} />

@@ -36,28 +36,32 @@ export default function ResultPanel({ result, canSave, saving, saved, onReset }:
     <div className="lg:sticky lg:top-5">
       <Card className="bg-gray-50">
         <h3 className="mb-3 text-sm font-semibold">Live calculation</h3>
+       
+        <Row label="Broker trip cost (ton*rate)" value={"₹" + formatINR(result.brokerTripCost)} />
+        <Row label="Trip amount (Broker Trip Cost - Broker Commission)" value={"₹" + formatINR(result.tripAmount)} strong  colorClass="text-green-600"/>
+        <hr className="my-2 border-dashed border-gray-300" />
 
         <Row label="Total KM" value={formatINR(result.totalKm)} />
-        <Row label="Litres (÷3)" value={formatINR(result.litres)} />
-        <Row label="Fuel cost (3km/L)" value={"₹" + formatINR(result.fuelCost)} />
+        <Row label="Litres" value={formatINR(result.litres)} />
+        <Row label="Fuel cost (3km/L)" value={"₹" + formatINR(Math.round(result.fuelCost))} />
         <Row label="Broker commission" value={"₹" + formatINR(result.brokerCommissionAmount)} />
         <Row label="Loading cost" value={"₹" + formatINR(result.loadingCostAmount)} />
         <Row label="Unloading cost" value={"₹" + formatINR(result.unloadingCostAmount)} />
         <Row label="RTO" value={"₹" + formatINR(result.rtoAmount)} />
         <Row label="Fastag cost" value={"₹" + formatINR(result.fastagCostAmount)} />
         <Row label="Driver" value={"₹" + formatINR(result.driver)} />
-        <Row label="Projected expenses" value={"₹" + formatINR(result.projectedExpenses)} strong />
-        <Row label="Per KM cost" value={"₹" + formatINR(result.perKmCost)} />
-        <Row label="Margin / trip" value={"₹" + formatINR(result.marginPerTrip)} />
-        <Row label="Final amount (exp + margin)" value={"₹" + formatINR(result.finalAmount)} strong />
 
         <hr className="my-2 border-dashed border-gray-300" />
 
-        <Row label="Broker trip cost (ton×rate)" value={"₹" + formatINR(result.brokerTripCost)} />
-        <Row label="Trip amount (broker cost − commission)" value={"₹" + formatINR(result.tripAmount)} strong />
+        <Row label="Projected expenses" value={"₹" + formatINR(Math.round(result.projectedExpenses))} strong />
+        <Row label="Margin Per Trip" value={"₹" + formatINR(result.marginPerTrip)} />
+        <Row label="Final Amount" value={"₹" + formatINR(Math.round(result.finalAmount))} strong />
+        <Row label="Per KM cost" value={"₹" + formatINR(result.perKmCost)} />
+        <hr className="my-2 border-dashed border-gray-300" />
+
         <Row
           label="Net margin"
-          value={"₹" + formatINR(result.netMargin)}
+          value={"₹" + formatINR(Math.round(result.netMargin))}
           strong
           colorClass={result.netMargin < 0 ? "text-red-600" : "text-green-600"}
         />
@@ -66,8 +70,9 @@ export default function ResultPanel({ result, canSave, saving, saved, onReset }:
 
         <Row label="Base closing rate/km" value={"₹" + formatINR(result.baseClosingRate)} />
         <Row label="Total quotation" value={"₹" + formatINR(result.totalQuotation)} strong />
-        <Row label="Quotation / ton" value={"₹" + formatINR(result.quotationPerTon)} />
+        <Row label="Quotation / ton" value={"₹" + formatINR(result.quotationPerTon)} /> 
 
+        
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <button
             type="submit"
