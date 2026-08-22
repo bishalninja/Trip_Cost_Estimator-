@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const loadsRouter = require("./routes/loads");
+const expenseRequestsRouter = require("./routes/expenseRequests");
 
 function createApp() {
   const app = express();
@@ -10,6 +11,7 @@ function createApp() {
 
   app.get("/api/health", (req, res) => res.json({ ok: true }));
   app.use("/api/loads", loadsRouter);
+  app.use("/api/expense-requests", expenseRequestsRouter);
 
   app.use((req, res) => res.status(404).json({ error: "Not found" }));
 

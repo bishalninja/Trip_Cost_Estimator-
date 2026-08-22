@@ -54,7 +54,7 @@ export default function ResultPanel({ result, canSave, saving, saved, onReset }:
         <hr className="my-2 border-dashed border-gray-300" />
 
         <Row label="Projected expenses" value={"₹" + formatINR(Math.round(result.projectedExpenses))} strong />
-        <Row label="Margin Per Trip" value={"₹" + formatINR(result.marginPerTrip)} />
+        <Row label="Fixed Margin" value={"₹" + formatINR(result.marginPerTrip)} />
         <Row label="Final Amount" value={"₹" + formatINR(Math.round(result.finalAmount))} strong />
         <Row label="Per KM cost" value={"₹" + formatINR(result.perKmCost)} />
         <hr className="my-2 border-dashed border-gray-300" />

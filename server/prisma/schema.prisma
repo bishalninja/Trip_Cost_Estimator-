@@ -48,5 +48,23 @@ model Load {
   totalQuotation    Float
   quotationPerTon   Float
 
+  expenseRequests ExpenseRequest[]
+
   @@map("loads")
+}
+
+model ExpenseRequest {
+  id     Int  @id @default(autoincrement())
+  loadId Int
+  load   Load @relation(fields: [loadId], references: [id])
+
+  lineItems Json
+
+  totalFixedAmount      Float
+  totalAlreadyPaid      Float
+  totalRequestingAmount Float
+
+  createdAt DateTime @default(now())
+
+  @@map("expense_requests")
 }

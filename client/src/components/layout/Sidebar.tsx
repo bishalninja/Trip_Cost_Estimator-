@@ -3,8 +3,10 @@ import { NavLink } from "react-router-dom";
 const links = [
   { to: "/", label: "Estimator", end: true },
   { to: "/history", label: "History" },
+  { to: "/request-form", label: "Request Form" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/reports", label: "Reports" },
+  
 ];
 
 export default function Sidebar() {

@@ -13,10 +13,12 @@ const COLUMNS = [
   "SKU",
   "Tonnage",
   "Total KM",
+  "Broker Cost",
   "Trip Amount",
-  "Margin per trip",
-  "Final amount",
-  "Net margin",
+  "Projected Expenses",
+  "Profit Margin",
+  "Fixed Margin",
+  "Net Margin",
 ];
 
 export default function History() {
@@ -75,6 +77,10 @@ export default function History() {
               <tbody>
                 {loads.map((l) => {
                   const isOpen = expandedId === l.id;
+                  // Profit Margin = Trip Amount - Projected Expenses
+                  // Net Margin    = Fixed Margin - Profit Margin
+                  const profitMargin = (l.tripAmount || 0) - (l.projectedExpenses || 0);
+                  const netMargin = profitMargin - (l.marginPerTrip || 0);
                   return (
                     <Fragment key={l.id}>
                       <tr onClick={() => toggleRow(l.id)} className="cursor-pointer hover:bg-gray-50">
@@ -97,15 +103,27 @@ export default function History() {
                         <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.sku}</td>
                         <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{l.tonnage}</td>
                         <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">{formatINR(l.totalKm)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">
+                          ₹{formatINR(l.brokerTripCost)}
+                        </td>
                         <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.tripAmount)}</td>
-                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.marginPerTrip)}</td>
-                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.finalAmount)}</td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">
+                          ₹{formatINR(l.projectedExpenses)}
+                        </td>
                         <td
                           className={`whitespace-nowrap border-b border-gray-100 px-2.5 py-2 ${
-                            l.netMargin < 0 ? "text-red-600" : "text-green-600"
+                            profitMargin < 0 ? "text-red-600" : "text-green-600"
                           }`}
                         >
-                          ₹{formatINR(l.netMargin)}
+                          ₹{formatINR(profitMargin)}
+                        </td>
+                        <td className="whitespace-nowrap border-b border-gray-100 px-2.5 py-2">₹{formatINR(l.marginPerTrip)}</td>
+                        <td
+                          className={`whitespace-nowrap border-b border-gray-100 px-2.5 py-2 ${
+                            netMargin < 0 ? "text-red-600" : "text-green-600"
+                          }`}
+                        >
+                          ₹{formatINR(netMargin)}
                         </td>
                       </tr>
                       {isOpen && <LoadDetailRow load={l} colSpan={COLUMNS.length + 1} />}
